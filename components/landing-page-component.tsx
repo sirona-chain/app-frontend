@@ -23,10 +23,32 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
+"use client";
+
+import { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 export function LandingPageComponent() {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+      const data = await response.json();
+      console.log('Success:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <>
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-[#E6F4F1] to-[#D0E9E5]">
@@ -43,8 +65,14 @@ export function LandingPageComponent() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <form className="flex space-x-2 w-full">
-                  <Input className="max-w-lg flex-1" placeholder="Enter your email" type="email" />
+                <form className="flex space-x-2 w-full" onSubmit={handleSubmit}>
+                  <Input
+                    className="max-w-lg flex-1"
+                    placeholder="Enter your email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <Button
                     className="inline-flex h-10 items-center justify-center rounded-full bg-[#0E4D4A] px-8 text-sm font-medium text-white shadow transition-colors hover:bg-[#0E4D4A]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0E4D4A] disabled:pointer-events-none disabled:opacity-50"
                     type="submit"
