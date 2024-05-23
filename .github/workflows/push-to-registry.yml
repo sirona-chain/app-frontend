@@ -6,6 +6,9 @@ on:
             - main
         paths:
             - "Dockerfile"
+            - "app/**"
+            - "components/**"
+            - "lib/**"
             - ".github/workflows/**"
 
 jobs:
