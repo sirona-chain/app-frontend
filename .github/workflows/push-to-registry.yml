@@ -38,7 +38,7 @@ jobs:
               id: meta
               uses: docker/metadata-action@v5
               with:
-                  images: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/backend
+                  images: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/frontend
                   tags: frontend
 
             - name: Build and push Docker image
@@ -46,5 +46,5 @@ jobs:
               with:
                   context: .
                   push: true
-                  tags: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/backend:frontend
+                  tags: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/frontend:frontend
                   labels: ${{ steps.meta.outputs.labels }}
