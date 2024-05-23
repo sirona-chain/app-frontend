@@ -3,10 +3,10 @@
  * @see https://v0.dev/t/ltPZmc6JBLp
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { AvatarImage, AvatarFallback, Avatar } from "../components/ui/avatar";
+import { ScrollArea } from "../components/ui/scroll-area";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 export function ChatRoomComponent() {
     return (
