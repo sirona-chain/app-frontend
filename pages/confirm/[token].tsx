@@ -15,7 +15,8 @@ const ConfirmEmail = () => {
         const confirmEmail = async () => {
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}auth/confirm/${token}`, {
-                    method: 'GET'
+                    method: 'GET',
+                    credentials: 'include',
                 });
 
                 if (response.ok) {
