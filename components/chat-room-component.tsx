@@ -1,9 +1,72 @@
+"use client";
+
 import { AvatarImage, AvatarFallback, Avatar } from "../components/ui/avatar";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { useEffect, useState } from "react";
+import {
+    createConversationsByUserId,
+    getConversationsByUserId,
+    sendMessageAndGetResponse,
+} from "../lib/api";
+
+interface Message {
+    role: "system" | "user" | "assistant";
+    content: string;
+}
+
+const USER_ID = "9bd8b4f1-bacc-4bdf-8e37-b1a0c5ff253b";
 
 export function ChatRoomComponent() {
+    const [input, setInput] = useState("");
+    const [conversationId, setConversationId] = useState(
+        "your_conversation_id_here"
+    );
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    useEffect(() => {
+        const call = async () => {
+            let conversations = await getConversationsByUserId(USER_ID);
+            let latestConversation;
+
+            if (!conversations.length) {
+                latestConversation = await createConversationsByUserId(USER_ID);
+            } else {
+                latestConversation = conversations[0];
+            }
+            console.log({ latestConversation });
+
+            setConversationId(latestConversation.id);
+        };
+        call().catch(console.error);
+    }, []);
+
+    const handleKeyPress = (e: any) => {
+        if (e.key === "Enter") {
+            handleSendMessage();
+        }
+    };
+
+    const handleSendMessage = async () => {
+        try {
+            const data = await sendMessageAndGetResponse(
+                USER_ID,
+                conversationId,
+                input
+            );
+
+            setMessages([
+                ...messages,
+                { role: "user", content: input },
+                { role: "assistant", content: data.text },
+            ]);
+            setInput("");
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    };
+
     return (
         <div className="flex h-screen bg-[#e6f7f8]">
             <div className="w-1/4 p-4 border-r border-gray-200">
@@ -39,20 +102,28 @@ export function ChatRoomComponent() {
                     <div className="flex-1 overflow-hidden">
                         <ScrollArea className="h-full">
                             <div className="space-y-4 p-4">
-                                <div className="flex items-end justify-start">
-                                    <div className="max-w-xs p-3 bg-white rounded-md shadow">
-                                        <p className="text-sm">
-                                            Hello! How can I assist you today?
-                                        </p>
+                                {messages.map((message, index) => (
+                                    <div
+                                        key={index}
+                                        className={`flex ${
+                                            message.role === "assistant"
+                                                ? "justify-start"
+                                                : "justify-end"
+                                        }`}
+                                    >
+                                        <div
+                                            className={`max-w-xs p-3 ${
+                                                message.role === "user"
+                                                    ? "bg-blue-100 text-right"
+                                                    : "bg-white text-left"
+                                            } rounded-md shadow`}
+                                        >
+                                            <p className="text-sm">
+                                                {message.content}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-end justify-end">
-                                    <div className="max-w-xs p-3 bg-blue-100 rounded-md shadow">
-                                        <p className="text-sm">
-                                            I am feeling a bit anxious today.
-                                        </p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </ScrollArea>
                     </div>
@@ -61,8 +132,16 @@ export function ChatRoomComponent() {
                             <Input
                                 className="flex-1"
                                 placeholder="Type your message..."
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={handleKeyPress}
                             />
-                            <Button variant="secondary">Send</Button>
+                            <Button
+                                variant="secondary"
+                                onClick={handleSendMessage}
+                            >
+                                Send
+                            </Button>
                         </div>
                     </div>
                 </div>
