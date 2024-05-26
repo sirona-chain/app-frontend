@@ -1,6 +1,7 @@
 import { Eczar } from "next/font/google";
 import { Yeseva_One } from "next/font/google";
 import "./styles.css";
+import React from "react";
 
 const eczar = Eczar({
     subsets: ["latin"],
@@ -16,10 +17,12 @@ const yeseva_one = Yeseva_One({
 
 export default function Layout({ children }: any) {
     return (
-        <html lang="en">
-            <body className={eczar.variable + " " + yeseva_one.variable}>
-                {children}
-            </body>
-        </html>
+        <React.StrictMode>
+            <html lang="en">
+                <body className={eczar.variable + " " + yeseva_one.variable}>
+                    {children}
+                </body>
+            </html>
+        </React.StrictMode>
     );
 }
