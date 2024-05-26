@@ -10,17 +10,7 @@ export function LandingPageComponent() {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/signup`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email }),
-                }
-            );
-            const data = await response.json();
+            const data = await signUpIn(email);
             console.log("Success:", data);
         } catch (error) {
             console.error("Error:", error);
