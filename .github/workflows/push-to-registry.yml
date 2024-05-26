@@ -40,12 +40,12 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/frontend
-                  tags: frontend
+                  tags: latest
 
             - name: Build and push Docker image
               uses: docker/build-push-action@v4
               with:
                   context: .
                   push: true
-                  tags: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/frontend:frontend
+                  tags: registry.digitalocean.com/${{ secrets.DOCR_REPOSITORY }}/frontend:latest
                   labels: ${{ steps.meta.outputs.labels }}
