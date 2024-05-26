@@ -59,7 +59,7 @@ import { Button } from "../components/ui/button";
               alt="Sirona Hero"
               className="mx-auto aspect-square overflow-hidden rounded-full object-cover sm:w-full lg:order-last"
               height="550"
-              src="/placeholder.svg"
+              src="/sirona.png"
               width="550"
             />
           </div>
@@ -72,8 +72,8 @@ import { Button } from "../components/ui/button";
               alt="Sirona Personalized Therapy"
               className="mx-auto aspect-video overflow-hidden rounded-2xl object-cover object-center sm:w-full lg:order-last"
               height="310"
-              src="/placeholder.svg"
-              width="550"
+              src="/sironaIndividual.png"
+              width="310"
             />
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
@@ -113,8 +113,8 @@ import { Button } from "../components/ui/button";
               alt="Sirona Secure Data Storage"
               className="mx-auto aspect-video overflow-hidden rounded-2xl object-cover object-center sm:w-full"
               height="310"
-              src="/placeholder.svg"
-              width="550"
+              src="/sironaProtect.png"
+              width="310"
             />
           </div>
         </div>
@@ -126,8 +126,8 @@ import { Button } from "../components/ui/button";
               alt="Sirona Seamless Integration"
               className="mx-auto aspect-video overflow-hidden rounded-2xl object-cover object-center sm:w-full lg:order-last"
               height="310"
-              src="/placeholder.svg"
-              width="550"
+              src="/sironaPara.png"
+              width="310"
             />
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
