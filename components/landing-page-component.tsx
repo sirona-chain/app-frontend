@@ -113,7 +113,7 @@ import { Button } from "../components/ui/button";
               alt="Sirona Secure Data Storage"
               className="mx-auto aspect-video overflow-hidden rounded-2xl object-cover object-center sm:w-full"
               height="310"
-              src="/sironaProtect.png"
+              src="/sironaProtect2.png"
               width="310"
             />
           </div>
