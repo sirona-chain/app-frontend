@@ -10,6 +10,7 @@ on:
             - "components/**"
             - "lib/**"
             - ".github/workflows/**"
+            - "pages/**"
 
 jobs:
     build:
