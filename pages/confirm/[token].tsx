@@ -32,7 +32,7 @@ const ConfirmEmail = () => {
                 } else {
                     throw new Error("Invalid or expired token");
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setError(error.message);
             } finally {
                 setLoading(false);
